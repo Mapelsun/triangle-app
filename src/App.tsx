@@ -1,20 +1,21 @@
 import { useState } from 'react'
 import FileUploader from './components/FileUploader'
+import Visualizer from './components/Visualizer'
 
 function App() {
-  const [triangles, setTriangles] = useState<string>('')
-  const handleFileUpload = (fileContent: string) => {
-    setTriangles(fileContent)
-  }
+  const [triangleData, setTriangleData] = useState<number[][]>([])
 
-  console.log('Triangles-->', triangles)
+  const handleFileUpload = (fileContent: number[][]) => {
+    setTriangleData(fileContent)
+  }
 
   return (
     <div className='min-h-screen flex flex-col justify-center items-center'>
-      <h1 className='mb-6 font-mono font-serif'>
+      <h1 className='mb-6 font-serif'>
         The Maximum Total (DFS) Triangle Calculator
       </h1>
       <FileUploader onFileUpload={handleFileUpload} />
+      {triangleData && <Visualizer triangleData={triangleData} />}
     </div>
   )
 }
