@@ -1,8 +1,10 @@
+import FileUploader from "./components/FileUploader"
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+    <div className="min-h-screen flex justify-center items-center">
+      <FileUploader />
+    </div>
   )
 }
 
