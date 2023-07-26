@@ -26,7 +26,7 @@ export default function FileUploader({ onFileUpload }: FileUploaderProps) {
 
   return (
     <form className='flex flex-col items-start'>
-      <label className='block mb-2'>
+      <label className='block mb-3'>
         <span className='sr-only'>Choose doc with data (.txt)</span>
         <input
           type='file'
