@@ -11,9 +11,10 @@ export default function FileUploader() {
   return (
     <form className='flex flex-col items-start'>
       <label className='block mb-2'>
-        <span className='sr-only'>Choose doc with data</span>
+        <span className='sr-only'>Choose doc with data (.txt)</span>
         <input
           type='file'
+          accept='.txt'
           className='block w-full text-sm text-slate-500
       file:mr-4 file:py-2 file:px-4
       file:rounded-full file:border-0
