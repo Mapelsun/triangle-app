@@ -42,8 +42,9 @@ export default function FileUploader({ onFileUpload }: FileUploaderProps) {
         />
       </label>
       <button
-        className='round-full bg-violet-50 text-md text-violet-700 py-2 px-4 hover:bg-violet-100 w-full'
-        onClick={handleFileUpload}>
+        className='round-full bg-violet-50 text-md text-violet-700 py-2 px-4 hover:bg-violet-100 w-full disabled:cursor-not-allowed'
+        onClick={handleFileUpload}
+        disabled={!selectedFile}>
         Upload File
       </button>
     </form>
