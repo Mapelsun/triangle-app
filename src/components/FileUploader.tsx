@@ -1,36 +1,38 @@
-import { useState, ChangeEvent, MouseEvent } from 'react'
+import { ChangeEvent } from 'react'
 
 type FileUploaderProps = {
-  onFileUpload: (fileContent: string) => void
+  onFileUpload: (fileContent: number[][]) => void
 }
 
 export default function FileUploader({ onFileUpload }: FileUploaderProps) {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null
-    setSelectedFile(file)
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const contents = e.target?.result as string
+      parseTriangleData(contents)
+    }
+    reader.readAsText(file)
   }
 
-  const handleFileUpload = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    if (selectedFile) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        const fileContent = reader.result as string
-        onFileUpload(fileContent)
-      }
-      reader.readAsText(selectedFile)
-    }
+  const parseTriangleData = (content: string) => {
+    const rows = content.trim().split('\n')
+    const triangle: number[][] = rows.map((row) =>
+      row.trim().split(' ').map(Number)
+    )
+    onFileUpload(triangle)
   }
 
   return (
-    <form className='flex flex-col items-start'>
+    <form className='flex flex-col items-start mb-6'>
       <label className='block mb-3'>
         <span className='sr-only'>Choose doc with data (.txt)</span>
         <input
           type='file'
           accept='.txt'
+          onChange={handleFileInputChange}
           className='block w-full text-sm text-slate-500
       file:mr-4 file:py-2 file:px-4
       file:rounded-full file:border-0
@@ -38,15 +40,8 @@ export default function FileUploader({ onFileUpload }: FileUploaderProps) {
       file:bg-violet-50 file:text-violet-700
       hover:file:bg-violet-100
     '
-          onChange={handleFileChange}
         />
       </label>
-      <button
-        className='round-full bg-violet-50 text-md text-violet-700 py-2 px-4 hover:bg-violet-100 w-full disabled:cursor-not-allowed'
-        onClick={handleFileUpload}
-        disabled={!selectedFile}>
-        Upload File
-      </button>
     </form>
   )
 }
