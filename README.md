@@ -30,6 +30,8 @@ If you are developing a production application, we recommend updating the config
 
 Triangle problem
 By starting at the top of the triangle and moving only to one of the two adjacent numbers on the row below, the maximum total from top to bottom is 30.
+
+```js
         5
       9  6
     4   6  8
@@ -37,6 +39,8 @@ By starting at the top of the triangle and moving only to one of the two adjacen
 8  3   1   1   2
 
 i.e. 5 + 9 + 6 + 7 + 3 = 30
+```
+
 Write a web app to calculate the maximum total from top to bottom in triangle.txt, a text file containing a triangle with 100 rows. The following requirements should be met:
 Must be written in ReactJS/NextJS
 Must have a UX to accept any arbitrary triangle file (like the one linked above)
