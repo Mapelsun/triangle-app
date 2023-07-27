@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className='min-h-screen flex flex-col justify-center items-center'>
-      <h1 className='mb-6 font-serif'>
+      <h1 className='mb-6 font-mono font-bold'>
         The Maximum Total (DFS) Triangle Calculator
       </h1>
       <FileUploader onFileUpload={handleFileUpload} />
