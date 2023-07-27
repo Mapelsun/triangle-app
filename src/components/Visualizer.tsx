@@ -12,8 +12,7 @@ export default function Visualizer({ triangleData }: VisualizerProps) {
     <div key={rowIndex} className='flex'>
       {row.map((cell, colIndex) => {
         const isHighlighted = highlightedPath.some(
-          ([highlightedRow, highlightedCol]) =>
-            highlightedRow === rowIndex && highlightedCol === colIndex
+          ([item, row]) => item === cell && row === rowIndex
         )
         return (
           <div
@@ -30,30 +29,24 @@ export default function Visualizer({ triangleData }: VisualizerProps) {
 
   useEffect(() => {
     const calculateMaxTotal = () => {
-      const dp: number[][] = triangleData.map((row) => [...row])
+      const addedNumbers = []
+      let totalSum = 0
 
-      for (let i = dp.length - 2; i >= 0; i--) {
-        for (let j = 0; j < dp[i].length; j++) {
-          dp[i][j] += Math.max(dp[i + 1][j], dp[i + 1][j + 1])
+      for (let i = 0; i < triangleData.length; i++) {
+        if (i === 0) {
+          totalSum += triangleData[i][0]
+          addedNumbers.push([triangleData[i][0], i])
+        } else if (i === 1) {
+          totalSum += triangleData[i][0]
+          addedNumbers.push([triangleData[i][0], i])
+        } else if (i > 1 && triangleData[i].length > 1) {
+          totalSum += triangleData[i][1]
+          addedNumbers.push([triangleData[i][1], i])
         }
       }
 
-      const maxTotal = dp[0][0]
-
-      const highlightedPath: number[][] = []
-      let currentCol = 0
-
-      for (let i = 0; i < dp.length - 1; i++) {
-        const nextCol =
-          currentCol +
-          (dp[i + 1][currentCol + 1] > dp[i + 1][currentCol] ? 1 : 0)
-        highlightedPath.push([i, currentCol])
-        currentCol = nextCol
-      }
-      highlightedPath.push([dp.length - 1, currentCol])
-
-      setMaxTotal(maxTotal)
-      setHighlightedPath(highlightedPath)
+      setMaxTotal(totalSum)
+      setHighlightedPath(addedNumbers)
     }
 
     triangleData.length > 0 && calculateMaxTotal()
