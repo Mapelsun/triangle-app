@@ -33,6 +33,7 @@ export default function FileUploader({ onFileUpload }: FileUploaderProps) {
           type='file'
           accept='.txt'
           onChange={handleFileInputChange}
+          aria-label="upload-input"
           className='block w-full text-sm text-slate-500
       file:mr-4 file:py-2 file:px-4
       file:rounded-full file:border-0
